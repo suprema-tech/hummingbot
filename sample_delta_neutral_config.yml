@@ -1,0 +1,42 @@
+# Sample Delta Neutral Arbitrage Configuration
+# Copy this to your strategy configuration file
+
+# Risk Parameters (Adjust based on your risk tolerance)
+risk_parameters:
+  max_inventory_size: 10000.0      # $10K max total exposure (start small)
+  max_trade_size: 1000.0           # $1K max per trade
+  min_profit_bps: 8.0              # 8 bps minimum profit (conservative)
+  max_profit_bps: 100.0            # 100 bps max expected profit
+  stop_loss_bps: 25.0              # 25 bps stop loss
+  take_profit_bps: 20.0            # 20 bps take profit
+  max_position_age_minutes: 120    # Close positions after 2 hours
+  heartbeat_timeout_seconds: 60    # Connection timeout
+
+# Example Arbitrage Pairs
+arbitrage_pairs:
+  # BTC Funding Rate Arbitrage
+  - leg_a:
+      symbol: "BTC"
+      exchange: "binance"
+      trading_pair: "BTCUSDT"
+      instrument_type: "spot"
+    leg_b:
+      symbol: "BTC"
+      exchange: "okx_perpetual"
+      trading_pair: "BTC-USDT-SWAP"
+      instrument_type: "perpetual"
+      leverage: 10.0
+    mode: "funding_rate"
+    min_profit_threshold: 8.0      # 8 bps minimum
+    max_inventory_ratio: 0.5       # Use 50% of available balance
+    enabled: true
+
+# Exchanges to connect
+exchanges:
+  - binance
+  - okx_perpetual
+
+# Logging
+logging:
+  level: "INFO"
+  enable_file_logging: true

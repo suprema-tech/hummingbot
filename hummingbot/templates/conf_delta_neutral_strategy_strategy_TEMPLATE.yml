@@ -1,0 +1,42 @@
+##########################################
+###   Delta Neutral Arbitrage Strategy Config   ###
+##########################################
+
+template_version: 3
+strategy: null
+
+# The following configurations are required for the Delta Neutral Arbitrage trading strategy
+
+# Exchange and Trading Pair Configuration
+spot_exchange: null
+spot_trading_pair: null
+derivative_exchange: null
+derivative_trading_pair: null
+
+# Arbitrage Configuration
+arbitrage_mode: null  # funding_rate, price_spread, or basis_arbitrage
+min_profit_bps: null  # Minimum profit threshold in basis points (e.g., 5.0 for 5 bps)
+
+# Risk Management Parameters
+max_trade_size: null  # Maximum trade size in USD equivalent
+max_inventory_size: null  # Maximum total inventory size in USD equivalent
+max_inventory_ratio: null  # Maximum percentage of available balance to use per trade (0.0 to 1.0)
+
+# Stop Loss and Take Profit (set to 0 to disable)
+stop_loss_bps: null  # Stop loss threshold in basis points
+take_profit_bps: null  # Take profit threshold in basis points
+max_position_age_minutes: null  # Maximum time to hold positions in minutes
+
+# Dynamic Hedging Configuration
+enable_dynamic_hedging: null  # Enable/disable dynamic hedging (true/false)
+hedging_threshold_bps: null  # Delta imbalance threshold to trigger hedging in basis points
+
+# Leverage Configuration (for derivatives)
+leverage: null  # Leverage multiplier for derivative trading
+
+# Strategy Execution Parameters
+refresh_interval: null  # How often to check for arbitrage opportunities in seconds
+
+# Emergency Controls
+emergency_stop_enabled: null  # Enable emergency stop functionality (true/false)
+heartbeat_timeout_seconds: null  # Maximum time without heartbeat before triggering emergency stop
