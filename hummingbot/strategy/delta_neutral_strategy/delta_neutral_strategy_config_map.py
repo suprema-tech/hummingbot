@@ -59,29 +59,34 @@ delta_neutral_strategy_config_map = {
         prompt="Enter the spot exchange to use for arbitrage (e.g., binance) >>> ",
         validator=validate_connector,
         on_validated=exchange_on_validated,
+        required_if=lambda: True,
     ),
     "spot_trading_pair": ConfigVar(
         key="spot_trading_pair",
         prompt=spot_market_prompt,
         validator=spot_market_validator,
         on_validated=spot_market_on_validated,
+        required_if=lambda: True,
     ),
     "derivative_exchange": ConfigVar(
         key="derivative_exchange",
         prompt="Enter the derivative exchange to use for arbitrage (e.g., binance_perpetual) >>> ",
         validator=validate_derivative,
         on_validated=exchange_on_validated,
+        required_if=lambda: True,
     ),
     "derivative_trading_pair": ConfigVar(
         key="derivative_trading_pair",
         prompt=derivative_market_prompt,
         validator=derivative_market_validator,
         on_validated=derivative_market_on_validated,
+        required_if=lambda: True,
     ),
     "arbitrage_mode": ConfigVar(
         key="arbitrage_mode",
         prompt="Enter arbitrage mode (funding_rate, price_spread, basis_arbitrage) >>> ",
         default="funding_rate",
+        required_if=lambda: True,
     ),
     "min_profit_bps": ConfigVar(
         key="min_profit_bps",
@@ -89,6 +94,7 @@ delta_neutral_strategy_config_map = {
         type_str="decimal",
         validator=validate_decimal,
         default=Decimal("5.0"),
+        required_if=lambda: True,
     ),
     "max_trade_size": ConfigVar(
         key="max_trade_size",
