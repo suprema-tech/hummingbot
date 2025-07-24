@@ -1,7 +1,5 @@
 from decimal import Decimal
-from typing import Dict
 
-from hummingbot.connector.connector_base import ConnectorBase
 from hummingbot.strategy.delta_neutral_strategy.delta_neutral_strategy import (
     ArbitrageMode,
     ArbitragePair,
@@ -12,10 +10,22 @@ from hummingbot.strategy.delta_neutral_strategy.delta_neutral_strategy import (
 )
 
 
-def start(config_map) -> DeltaNeutralArbitrageStrategy:
+def start(self):
     """
     Creates and starts a Delta Neutral Arbitrage Strategy instance from configuration.
     """
+    # Get configuration values
+    from hummingbot.strategy.delta_neutral_strategy.delta_neutral_strategy_config_map import (
+        delta_neutral_strategy_config_map as config_map,
+    )
+
+    spot_connector = config_map["spot_exchange"].value.lower()
+    spot_market = config_map["spot_trading_pair"].value
+    derivative_connector = config_map["derivative_exchange"].value.lower()
+    derivative_market = config_map["derivative_trading_pair"].value
+
+    # Initialize markets using Hummingbot framework pattern
+    self.initialize_markets([(spot_connector, [spot_market]), (derivative_connector, [derivative_market])])
 
     # Create spot instrument configuration
     spot_instrument = InstrumentConfig(
@@ -64,16 +74,10 @@ def start(config_map) -> DeltaNeutralArbitrageStrategy:
         emergency_stop_enabled=config_map["emergency_stop_enabled"].value,
     )
 
-    # Get connectors (this would be handled by Hummingbot's connector management)
-    connectors: Dict[str, ConnectorBase] = {}
-    # Note: In production, this would be populated by Hummingbot's market initialization
-
-    # Create strategy instance
-    strategy = DeltaNeutralArbitrageStrategy(
-        connectors=connectors,
+    # Create strategy instance using Hummingbot framework pattern
+    self.strategy = DeltaNeutralArbitrageStrategy(
+        connectors=self.markets,
         arbitrage_pairs=[arbitrage_pair],
         risk_parameters=risk_parameters,
         refresh_interval=config_map["refresh_interval"].value,
     )
-
-    return strategy

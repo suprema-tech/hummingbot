@@ -48,3 +48,12 @@ Starting with the most critical file: `binance_delivery_derivative.py`
 
 ### Step 4: Status Check
 **✅ SUCCESS:** BinanceDeliveryDerivative now imports successfully!
+
+### Step 5: Strategy Start Issue
+**❌ PROBLEM:** Strategy start failing - connectors dictionary is empty in start.py
+**ROOT CAUSE:** The start.py file has empty connectors dict, strategy needs actual connector instances
+**✅ SOLUTION:** Updated start.py to use proper Hummingbot framework pattern:
+- Changed `def start(config_map)` → `def start(self)` (Hummingbot pattern)
+- Added `self.initialize_markets()` to create connector instances
+- Pass `self.markets` instead of empty connectors dict
+- Follow same pattern as spot_perpetual_arbitrage strategy
