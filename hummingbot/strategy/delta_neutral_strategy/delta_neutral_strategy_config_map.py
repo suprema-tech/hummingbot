@@ -179,3 +179,6 @@ delta_neutral_strategy_config_map = {
         default=60,
     ),
 }
+
+# Export for compatibility with Hummingbot framework
+config_map = delta_neutral_strategy_config_map
